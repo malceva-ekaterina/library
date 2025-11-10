@@ -4,15 +4,13 @@ use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BooksActionController;
 use App\Http\Controllers\GroupController;
+use App\Http\Controllers\IndexController;
 use App\Http\Controllers\PublishingController;
 use App\Http\Controllers\ReaderController;
 use App\Http\Controllers\TypeOfBookController;
-use App\Models\Books_Action;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [IndexController::class, 'index'])->name('index');
 
 Route::get('/items/books', [BookController::class, 'index'])->name('items.books.index');
 Route::get('/items/books/create', [BookController::class, 'create'])->name('items.books.create');
@@ -40,4 +38,6 @@ Route::post('/readers/readers/create', [ReaderController::class, 'store'])->name
 
 Route::get('/accounting/', [BooksActionController::class, 'index'])->name('accounting.index');
 Route::get('/accounting/issuance/', [BooksActionController::class, 'issuance'])->name('accounting.issuance');
-Route::post('/accounting/', [BooksActionController::class, 'get_book'])->name('accounting.get_book');
+Route::post('/accounting/issuance/', [BooksActionController::class, 'getBooks'])->name('accounting.getBooks');
+Route::get('/accounting/return/{id}', [BooksActionController::class, 'return'])->name('accounting.return');
+Route::post('/accounting/return/{id}', [BooksActionController::class, 'returnBooks'])->name('accounting.returnBooks');

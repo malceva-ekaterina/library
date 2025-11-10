@@ -1,0 +1,56 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    list-style: none;
+}
+body {
+    background-color: rgb(245, 245, 245);
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(58, 174, 241);
+    height: 50px;
+    align-items: center;
+    padding: 10px;
+
+}
+.header * {
+    text-decoration: none;
+    font-size: 20px;
+    color: black;
+    font-weight: bold;
+}
+.header > div {
+    display: flex;
+    gap: 10px;
+}
+main {
+    padding: 50px;
+}
+table {
+    width: 60%;
+}
+td {
+    padding: 20px;
+    text-align: justify;
+}
+
+form {
+    margin: 0 auto;
+    background-color: rgb(255, 255, 255);
+    padding: 20px;
+    border-radius: 20px;
+
+}
+form * {
+    margin: 5px 0;
+}
+fieldset {
+    border-color: rgb(165, 165, 165);
+    padding: 5px;
+}
+input[type="submit"] {
+    padding: 5px;
+}

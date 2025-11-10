@@ -26,10 +26,23 @@ class ReaderController extends Controller
             'firstname'=>'required|string',
             'patronymic'=>'nullable|string',
             'type_of_reader'=>'required',
-            'group_id'=>'nullable|required_if:type_of_readers,student|exists:groups,id',
+            'group_id'=>'nullable|required_if:type_of_reader,student|exists:groups,id',
         ]);
 
-        Reader::create($request->all());
+        $group_id = $request->group_id;
+
+        if (($request->type_of_reader == 'teacher') or ($request->type_of_reader == 'other'))
+        {
+            $group_id = NULL;
+        }
+
+        Reader::create([
+            'lastname'=>$request->lastname,
+            'firstname'=>$request->firstname,
+            'patronymic'=>$request->patronymic,
+            'type_of_reader'=>$request->type_of_reader,
+            'group_id'=>$group_id
+        ]);
 
         return redirect()
         ->route('readers.readers.index');

@@ -12,6 +12,7 @@ class BooksActionController extends Controller
     public function index()
     {
         $books_actions = Books_Action::all();
+
         return view('accounting.index', compact('books_actions'));
     }
     public function issuance(Request $request)
@@ -33,7 +34,7 @@ class BooksActionController extends Controller
         return view('accounting.issuance', compact('readers', 'books'));
     }
 
-    public function get_book(Request $request)
+    public function getBooks(Request $request)
     {
         $request->validate([
             'reader_id'=>'required|exists:readers,id',
@@ -53,9 +54,61 @@ class BooksActionController extends Controller
         $book->count_of_items -= $request->count;
         $book->save();
 
-        Books_Action::create($request->all());
+        $books_action = Books_Action::create($request->all());
+
+        $books_action->reader->can_get_books = false;
+        $books_action->reader->save();
 
         return redirect()
         ->route('accounting.index');
+    }
+
+    public function return($id)
+    {
+        $books_action = Books_Action::find($id);
+        return view('accounting.return', compact('books_action'));
+    }
+
+    public function returnBooks(Request $request, $id)
+    {
+        $request->validate([
+            'return_date'=>'required|date',
+            'count'=>'required|integer'
+        ]);
+
+        $books_action = Books_Action::findOrFail($id);
+        if ($request->count > $books_action->count) {
+            return back()
+            ->withErrors('Count too big');
+        }
+
+        if ($request->count < $books_action->count)
+        {
+            $books_action->count -= $request->count;
+            $books_action->book->count_of_items += $request->count;
+
+            $books_action->save();
+            $books_action->book->save();
+
+            return redirect()
+            ->route('accounting.index')
+            ->with('Message', 'Return date not installed');
+        }
+
+        if ($request->count == $books_action->count)
+        {
+            $books_action->count = 0;
+            $books_action->book->count_of_items += $request->count;
+
+            $books_action->return_date = $request->return_date;
+            $books_action->save();
+            $books_action->book->save();
+
+            $books_action->reader->can_get_books = true;
+            $books_action->reader->save();
+
+            return redirect()
+            ->route('accounting.index');
+        }
     }
 }
