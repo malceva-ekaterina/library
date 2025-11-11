@@ -45,6 +45,11 @@ class BooksActionController extends Controller
 
         $book = Book::find($request->book_id);
 
+        if ($request->count < 1) {
+            return back()
+            ->withErrors('Count of items to less 1');
+        }
+
         if ($book->count_of_items < $request->count) {
             return redirect()
             ->back()

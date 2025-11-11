@@ -23,10 +23,10 @@
             </tr>
             @foreach ($readers as $reader)
                 <tr>
-                    <th>{{ $reader->lastname . ' ' . $reader->firstname . ' ' . $reader->patronymic}}</th>
-                    <th>{{ $reader->type_of_reader == 'teacher' ? 'Учитель' : ($reader->type_of_reader == 'student' ? 'студент' : 'другой')}}</th>
-                    <th>{{ $reader->group_id != null ? $reader->group->name : '-' }}</th>
-                    <th>{{ $reader->can_get_books == true ? 'Доступен' : '-' }}</th>
+                    <td>{{ $reader->lastname . ' ' . $reader->firstname . ' ' . $reader->patronymic}}</td>
+                    <td>{{ $reader->type_of_reader == 'teacher' ? 'Учитель' : ($reader->type_of_reader == 'student' ? 'Студент' : 'Другой')}}</td>
+                    <td>{{ $reader->group_id != null ? $reader->group->name : '-' }}</th>
+                    <td>{{ $reader->can_get_books == true ? 'Доступен' : '-' }}</td>
                 </tr>
             @endforeach
         </table>
