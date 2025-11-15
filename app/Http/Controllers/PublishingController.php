@@ -10,6 +10,7 @@ class PublishingController extends Controller
     public function index()
     {
         $publishings = Publishing::all();
+
         return view('items.publishings.index', compact('publishings'));
     }
 
@@ -21,15 +22,15 @@ class PublishingController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'=>'required|string',
+            'name' => 'required|string',
         ]);
 
         Publishing::create([
-            'name'=> $request->name,
+            'name' => $request->name,
         ]);
 
         return redirect()
-        ->route('items.publishings.index')
-        ->with('Message', 'publishing created susseccly');
+            ->route('items.publishings.index')
+            ->with('Message', 'publishing created susseccly');
     }
 }

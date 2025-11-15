@@ -10,6 +10,7 @@ class GroupController extends Controller
     public function index()
     {
         $groups = Group::all();
+
         return view('readers.groups.index', compact('groups'));
     }
 
@@ -21,15 +22,15 @@ class GroupController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'=>'required|string',
+            'name' => 'required|string',
         ]);
 
         Group::create([
-            'name'=> $request->name,
+            'name' => $request->name,
         ]);
 
         return redirect()
-        ->route('readers.groups.index')
-        ->with('Message', 'Author created susseccly');
+            ->route('readers.groups.index')
+            ->with('Message', 'Author created susseccly');
     }
 }

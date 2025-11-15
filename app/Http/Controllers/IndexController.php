@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Models\Books_Action;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
 
 class IndexController extends Controller
 {
@@ -21,13 +19,11 @@ class IndexController extends Controller
         $middleDate = Carbon::now()->subMonths(1);
         $endDate = Carbon::now();
 
-
         $threeMonthsAgo = Books_Action::whereMonth('get_date', $startDate)->get()->count();
         $twoMonthsAgo = Books_Action::whereMonth('get_date', $middleDate)->get()->count();
         $thisMonths = Books_Action::whereMonth('get_date', $endDate)->get()->count();
 
-        return view('index', compact('unreturnedBooks' ,'availableBooks', 'threeMonthsAgo', 'twoMonthsAgo', 'thisMonths', 'startDate','middleDate','endDate'));
-
+        return view('index', compact('unreturnedBooks', 'availableBooks', 'threeMonthsAgo', 'twoMonthsAgo', 'thisMonths', 'startDate', 'middleDate', 'endDate'));
 
     }
 }

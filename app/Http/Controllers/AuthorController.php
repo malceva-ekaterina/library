@@ -10,6 +10,7 @@ class AuthorController extends Controller
     public function index()
     {
         $authors = Author::all();
+
         return view('items.authors.index', compact('authors'));
     }
 
@@ -17,23 +18,23 @@ class AuthorController extends Controller
     {
         return view('items.authors.create');
     }
+
     public function store(Request $request)
     {
         $request->validate([
-            'lastname'=>'required|string',
-            'firstname'=>'required|string',
-            'patronymic'=>'string|nullable',
+            'lastname' => 'required|string',
+            'firstname' => 'required|string',
+            'patronymic' => 'string|nullable',
         ]);
 
         Author::create([
-            'lastname'=> $request->lastname,
+            'lastname' => $request->lastname,
             'firstname' => $request->firstname,
-            'patronymic' => $request->patronymic
+            'patronymic' => $request->patronymic,
         ]);
 
         return redirect()
-        ->route('items.authors.index')
-        -> with('Message', 'Author created susseccly');
+            ->route('items.authors.index')
+            ->with('Message', 'Author created susseccly');
     }
-
 }

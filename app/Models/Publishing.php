@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-
 class Publishing extends Model
 {
     public $timestamps = false;
@@ -14,7 +13,7 @@ class Publishing extends Model
         'name',
     ];
 
-     public function books(): HasMany
+    public function books(): HasMany
     {
         return $this->hasMany(Book::class);
     }

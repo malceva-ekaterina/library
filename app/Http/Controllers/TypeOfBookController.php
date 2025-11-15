@@ -10,6 +10,7 @@ class TypeOfBookController extends Controller
     public function index()
     {
         $types = Type_of_book::all();
+
         return view('items.types-of-books.index', compact('types'));
     }
 
@@ -21,15 +22,15 @@ class TypeOfBookController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'=>'required|string',
+            'name' => 'required|string',
         ]);
 
         Type_of_book::create([
-            'name'=> $request->name,
+            'name' => $request->name,
         ]);
 
         return redirect()
-        ->route('items.types-of-books.index')
-        ->with('Message', 'Type created susseccly');
+            ->route('items.types-of-books.index')
+            ->with('Message', 'Type created susseccly');
     }
 }

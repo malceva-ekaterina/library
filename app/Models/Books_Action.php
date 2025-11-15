@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Books_Action extends Model
 {
-    protected $table='books_actions';
+    protected $table = 'books_actions';
+
     public $timestamps = false;
 
     protected $fillable = [
@@ -21,6 +22,7 @@ class Books_Action extends Model
     {
         return $this->belongsTo(Book::class);
     }
+
     public function reader()
     {
         return $this->belongsTo(Reader::class);
